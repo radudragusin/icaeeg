@@ -1,19 +1,24 @@
 %function [ ] = readEEGdata( )
-% Read the text file containing the EEG data for one second, plot the
-% waves for the 64 electrods, and make a movie with the values of the 
+%
+% Compatible with the EEG data from
+% http://archive.ics.uci.edu/ml/datasets/EEG+Database
+%
+% Reads the text file containing the EEG data for one second, plots the
+% waves for the 64 electrods, and makes a movie with the values of the 
 % electrodes for each frame of that one second.
+%
+% Uses coords.mat
 
 % Read the file which returns: the trial number, sensor position (channel),
 % sample number (0-255), and sensor value (in micro volts).
-[T,C,S,V] = textread('co2c0000337.rd.000','%d %s %d %f','headerlines',5,'commentstyle','shell');
-clear T S;
+[~,C,~,V] = textread('co2c0000337.rd.000','%d %s %d %f','headerlines',5,'commentstyle','shell');
 
 % Reshape the data for further usage
 V = reshape(V,256,64);
 V = V';
-[dummy I] = unique(C,'first'); 
+[~, I] = unique(C,'first'); 
 C = C(sort(I));
-clear dummy I;
+clear I;
 
 % % Plot the waves for each electrod
 % figure;
@@ -31,6 +36,8 @@ clear dummy I;
 % end
 % set(gca,'xtickMode', 'auto');
 
+% Load the file containing the XYZ location of each of the 61 channels and
+% the name of those channels
 load coords
 
 Xs = Coordinates(:,1);
