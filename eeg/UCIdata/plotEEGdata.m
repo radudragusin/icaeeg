@@ -1,4 +1,4 @@
-%function [ ] = readEEGdata( )
+%function [ ] = plotEEGdata( )
 %
 % Compatible with the EEG data from
 % http://archive.ics.uci.edu/ml/datasets/EEG+Database
@@ -47,7 +47,7 @@ ti=-1.1:0.01:1.1;
 scrsz = get(0,'ScreenSize');
 
 channels_text = cell(length(Channels),1);
-indxs = zeros(length(Channels));
+indxs = zeros(length(Channels),1);
 for i=1:length(Channels),
     for j=1:length(C),
         if all(strcmp(C{j}, Channels{i})) 
@@ -79,5 +79,3 @@ for s=1:size(V,2),
     hold off;
     M(s) = getframe;
 end
-
-
